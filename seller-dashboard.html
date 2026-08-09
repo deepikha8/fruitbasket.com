@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Seller Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#f4f4f4; }
+    header { background:#ff6600; color:white; padding:15px; text-align:center; font-size:24px; font-weight:bold; }
+    .container {
+      width:500px; margin:40px auto; background:white;
+      padding:30px; border-radius:12px; box-shadow:0 0 20px rgba(0,0,0,0.2);
+    }
+    h2 { text-align:center; margin-bottom:20px; color:#ff6600; }
+    p { font-size:16px; margin:8px 0; }
+    input, button {
+      width:100%; padding:12px; margin:10px 0;
+      border:1px solid #ccc; border-radius:6px;
+    }
+    button {
+      background:#ff6600; color:white; font-weight:bold;
+      border:none; cursor:pointer; transition:0.3s;
+    }
+    button:hover { background:#e65c00; }
+  </style>
+</head>
+<body>
+  <header>Seller Dashboard</header>
+  <div class="container">
+    <h2>Welcome Seller</h2>
+    <p><strong>Name:</strong> <span id="sellerName"></span></p>
+    <p><strong>Email:</strong> <span id="sellerEmail"></span></p>
+    <p><strong>Phone:</strong> <span id="sellerPhone"></span></p>
+    <div id="phoneInputBox" style="display:none;">
+      <input type="text" id="phoneInput" placeholder="Enter Phone Number">
+      <button onclick="savePhone()">Save Phone Number</button>
+    </div>
+
+    <h3>Upload Fruit Details</h3>
+    <input type="file" id="fruitImage" accept="image/*">
+    <input type="text" id="fruitName" placeholder="Fruit Name" required>
+    <input type="number" id="fruitPrice" placeholder="Price per kg" required>
+    <button onclick="submitFruit()">Submit</button>
+  </div>
+
+  <script>
+    // Load seller details
+    document.getElementById("sellerName").textContent = localStorage.getItem("sellerName") || "Not set";
+    document.getElementById("sellerEmail").textContent = localStorage.getItem("sellerEmail") || "Not set";
+    const sellerPhone = localStorage.getItem("sellerPhone");
+    if (sellerPhone) {
+      document.getElementById("sellerPhone").textContent = sellerPhone;
+    } else {
+      document.getElementById("sellerPhone").textContent = "Not set";
+      document.getElementById("phoneInputBox").style.display = "block";
+    }
+
+    function savePhone() {
+      const phone = document.getElementById("phoneInput").value;
+      if (phone) {
+        localStorage.setItem("sellerPhone", phone);
+        document.getElementById("sellerPhone").textContent = phone;
+        document.getElementById("phoneInputBox").style.display = "none";
+      }
+    }
+
+    function submitFruit() {
+      const fruitName = document.getElementById("fruitName").value;
+      const fruitPrice = document.getElementById("fruitPrice").value;
+      const fruitImage = document.getElementById("fruitImage").files[0];
+
+      if (fruitName && fruitPrice && fruitImage) {
+        // Save fruit details in localStorage
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          localStorage.setItem("fruitName", fruitName);
+          localStorage.setItem("fruitPrice", fruitPrice);
+          localStorage.setItem("fruitImage", e.target.result); // base64 image
+          // Redirect to buyer dashboard
+          window.location.href = "buyer-dashboard.html";
+        };
+        reader.readAsDataURL(fruitImage);
+      } else {
+        alert("Please fill all fields and upload an image.");
+      }
+    }
+  </script>
+</body>
+</html>

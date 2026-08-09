@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Buyer Dashboard</title>
+  <style>
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#f4f4f4;
+    }
+    header {
+      background:#ff6600;
+      color:white;
+      padding:15px;
+      text-align:center;
+      font-size:24px;
+      font-weight:bold;
+    }
+    nav {
+      background:#333;
+      padding:10px;
+      text-align:center;
+    }
+    nav a {
+      color:white;
+      text-decoration:none;
+      margin:0 15px;
+      font-weight:bold;
+    }
+    nav a:hover {
+      text-decoration:underline;
+    }
+    .container {
+      padding:20px;
+    }
+    h2 {
+      color:#ff6600;
+      text-align:center;
+    }
+    .products {
+      display:flex;
+      flex-wrap:wrap;
+      gap:20px;
+      justify-content:center;
+      margin-top:20px;
+    }
+    .product {
+      background:white;
+      border:1px solid #ddd;
+      border-radius:8px;
+      width:200px;
+      padding:15px;
+      text-align:center;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+    .product img {
+      width:100%;
+      height:120px;
+      object-fit:cover;
+      border-radius:6px;
+    }
+    .product h3 {
+      margin:10px 0 5px;
+      font-size:18px;
+    }
+    .product p {
+      margin:0 0 10px;
+      font-size:14px;
+      color:#555;
+    }
+    .product button {
+      background:#ff6600;
+      color:white;
+      border:none;
+      padding:8px 12px;
+      border-radius:4px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+    .product button:hover {
+      background:#e65c00;
+    }
+  </style>
+</head>
+<body>
+  <header>Buyer Dashboard</header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#">My Orders</a>
+    <a href="#">Profile</a>
+    <a href="login-buyer.html">Logout</a>
+  </nav>
+
+  <div class="container">
+    <h2>Available Fruits</h2>
+    <div class="products" id="products">
+      <!-- Static fruits -->
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1574226516831-e1dff420e12d" alt="Apple">
+        <h3>Apple</h3>
+        <p>₹120 / kg</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" alt="Banana">
+        <h3>Banana</h3>
+        <p>₹60 / dozen</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1617196037303-5e5d1c2c8e8f" alt="Orange">
+        <h3>Orange</h3>
+        <p>₹80 / kg</p>
+        <button>Add to Cart</button>
+      </div>
+      <!-- ... keep your other static fruits here ... -->
+    </div>
+  </div>
+
+  <script>
+    // Check if seller uploaded a fruit
+    const fruitName = localStorage.getItem("fruitName");
+    const fruitPrice = localStorage.getItem("fruitPrice");
+    const fruitImage = localStorage.getItem("fruitImage");
+
+    if (fruitName && fruitPrice && fruitImage) {
+      const productsDiv = document.getElementById("products");
+      const newProduct = document.createElement("div");
+      newProduct.className = "product";
+      newProduct.innerHTML = `
+        <img src="${fruitImage}" alt="${fruitName}">
+        <h3>${fruitName}</h3>
+        <p>₹${fruitPrice} / kg</p>
+        <button>Add to Cart</button>
+      `;
+      productsDiv.appendChild(newProduct);
+    }
+  </script>
+</body>
+</html>
