@@ -56,9 +56,10 @@
     }
     .product img {
       width:100%;
-      height:120px;
-      object-fit:cover;
+      height:150px;          /* uniform height */
+      object-fit:cover;      /* crops neatly without distortion */
       border-radius:6px;
+      background:#fff;
     }
     .product h3 {
       margin:10px 0 5px;
@@ -95,15 +96,15 @@
   <div class="container">
     <h2>Available Fruits</h2>
     <div class="products" id="products">
-      <!-- Static fruits -->
+      <!-- 9 Static fruits -->
       <div class="product">
-        <img src="https://images.unsplash.com/photo-1574226516831-e1dff420e12d" alt="Apple">
+       <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" alt="Apple">
         <h3>Apple</h3>
         <p>₹120 / kg</p>
         <button>Add to Cart</button>
       </div>
       <div class="product">
-        <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" alt="Banana">
+     <img src="https://images.unsplash.com/photo-1574226516831-e1dff420e12d" alt="Banana">  
         <h3>Banana</h3>
         <p>₹60 / dozen</p>
         <button>Add to Cart</button>
@@ -114,28 +115,61 @@
         <p>₹80 / kg</p>
         <button>Add to Cart</button>
       </div>
-      <!-- ... keep your other static fruits here ... -->
+      <div class="product">
+      <img src="https://images.unsplash.com/photo-1582515073490-dc0c7f1c1f3b" alt="Mango">
+        <h3>Mango</h3>
+        <p>₹100 / kg</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+      <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f" alt="Grapes">
+        <h3>Grapes</h3>
+        <p>₹90 / kg</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+       <img src="https://images.unsplash.com/photo-1592928303860-1e0f6a7f6a3f" alt="Pineapple">
+        <h3>Pineapple</h3>
+        <p>₹70 / piece</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" alt="Strawberry">
+        <h3>Strawberry</h3>
+        <p>₹250 / kg</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+      <img src="https://images.unsplash.com/photo-1604908177522-432f3f3f3f3f" alt="Watermelon">
+        <h3>Watermelon</h3>
+        <p>₹40 / kg</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1617196037303-5e5d1c2c8e8f" alt="Papaya">
+        <h3>Papaya</h3>
+        <p>₹60 / kg</p>
+        <button>Add to Cart</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // Check if seller uploaded a fruit
-    const fruitName = localStorage.getItem("fruitName");
-    const fruitPrice = localStorage.getItem("fruitPrice");
-    const fruitImage = localStorage.getItem("fruitImage");
+    // Load fruits uploaded by seller
+    const productsDiv = document.getElementById("products");
+    let fruits = JSON.parse(localStorage.getItem("fruits")) || [];
 
-    if (fruitName && fruitPrice && fruitImage) {
-      const productsDiv = document.getElementById("products");
+    fruits.forEach(fruit => {
       const newProduct = document.createElement("div");
       newProduct.className = "product";
       newProduct.innerHTML = `
-        <img src="${fruitImage}" alt="${fruitName}">
-        <h3>${fruitName}</h3>
-        <p>₹${fruitPrice} / kg</p>
+        <img src="${fruit.image}" alt="${fruit.name}">
+        <h3>${fruit.name}</h3>
+        <p>₹${fruit.price} / kg</p>
         <button>Add to Cart</button>
       `;
       productsDiv.appendChild(newProduct);
-    }
+    });
   </script>
 </body>
 </html>
